@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DLIB_INSTALL_DIR:PATH=lib -DLIB_SUFFIX=64 -DSOAPY_SDR_ROOT=/usr ..
+make
+make DESTDIR="$1" install

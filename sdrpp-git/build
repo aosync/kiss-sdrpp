@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+sed -i 's|glfw|glfw3|' CMakeLists.txt
+sed -i 's|-fsanitize=address -g||' CMakeLists.txt
+
+mkdir build
+cd build
+cmake ..
+make
+
+install -Dm755 sdrpp "$1/usr/lib/sdrpp/sdrpp"
+mv ../res "$1/usr/lib/sdrpp/res"
+
+mkdir -p "$1/usr/bin"
+cat <<! > "$1/usr/bin/sdrpp"
+#!/bin/sh
+
+loc="$PWD"
+cd /usr/lib/sdrpp
+./sdrpp
+cd "$loc"
+!
+chmod +x "$1/usr/bin/sdrpp"

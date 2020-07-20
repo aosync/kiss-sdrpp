@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+pip install --root="$1" Mako
